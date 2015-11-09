@@ -1,0 +1,80 @@
+<div class="container">
+
+  <div>
+    <acme-navbar />
+  </div>
+
+  <div class="row">
+    <div class="col-md-3">
+      <div class="panel panel-default text-center">
+        <h1>{{ weather.name }} , {{ weather.sys.country}}</h1>
+        <h2>
+          <span class="label label-success">
+          <i class="wi wi-thermometer fa-lg"></i>
+          {{ weather.main.temp | number: 0 }}<i class="wi wi-degrees fa-lg"></i>
+          </span>
+        </h2>
+        <br>
+        <p><i ng-class="getMainIconClass()" class="owf owf-5x"></i></p>
+        <p>
+          <i class="wi wi-sunrise fa-lg"></i> {{ weather.sys.sunrise * 1000 | date:'H:m' }}&nbsp;
+          <i class="wi wi-sunset fa-lg"></i> {{ weather.sys.sunset * 1000 | date:'H:m'  }}
+        </p>
+        <h4>
+          <span class="label label-info">
+            <i class="wi wi-thermometer fa-lg"></i>
+            Min {{ weather.main.temp_min | number: 0 }}<i class="wi wi-degrees fa-lg"></i>
+          </span>
+          &nbsp;
+          <span class="label label-danger">
+            <i class="wi wi-thermometer fa-lg"></i>
+            Max {{ weather.main.temp_max | number: 0 }}<i class="wi wi-degrees fa-lg"></i>
+          </span>
+        </h4>
+        <hr>
+        <p>
+          <h4><i ng-class="getWindDegClass()" class="wi fa-lg"></i> &nbsp;{{ (weather.wind.speed * 3600) / 1000 | number : 0}} Km/h &nbsp; </h4>
+        </p>
+        <hr>
+        <p>
+          <i class="wi wi-sprinkles fa-lg"></i> {{ weather.main.humidity }}% &nbsp;
+          <i class="fa fa-clock-o fa-lg"></i> {{ weather.main.pressure }} hPa &nbsp;
+          <i class="fa fa-picture-o fa-lg"></i> {{ weather.visibility ? weather.visibility + 'm' : 'N/A' }} &nbsp;
+        </p>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div>
+        <table class="table">
+          <tbody>
+            <tr ng-repeat="list in forecast.list">
+              <td>{{ list.dt_txt }}</td>
+              <td>{{ list.weather[0].description }}</td>
+              <td>{{ list.clouds.all }}%</td>
+              <td> mm</td>
+              <td>{{ list.wind.deg }}</td>
+              <td>{{ list.wind.speed }}</td>
+              <td>{{ list.main.temp_max }}</td>
+              <td>{{ list.main.temp }}</td>
+              <td>{{ list.main.temp_min }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div ng-repeat="days in getDays()">
+
+      </div>
+
+      <!-- <div ng-repeat="(k,v) in forecast.list">
+        <div ng-if="k == 0" class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">{{ getDateLong(forecast.list[0].dt_txt)}}</h3>
+          </div>
+          <div class="panel-body">
+              sfsfsf
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </div>
